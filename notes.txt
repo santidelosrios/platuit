@@ -1,0 +1,46 @@
+Data modeling:
+
+Users:
+-------
+id       | pk, int, sec
+name     | string 
+username | string
+location | string
+timezone | string
+
+platuit:
+-----------
+id           | pk, int, sec
+content      | string, limit(200)
+user_id      | fk, int 
+
+
+platuit_reaction
+user_id fk
+tuit_id fk
+like bool
+dislike bool
+visits int
+
+Services:
+
+tuits
+POST /tuit
+GET /tuit
+GET /tuit/{id}
+
+reaction
+POST /reaction
+
+constraints:
+- likes/dislike solo una vez
+- visits multiples veces
+
+Reaction:
+- visit
+- likes
+- dislikes
+
+GET /tuits/{id}
+
+request - POST /reaction

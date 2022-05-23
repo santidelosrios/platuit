@@ -1,0 +1,42 @@
+version: '3'
+services:
+  ms_tuits:
+    container_name: ms_tuits
+    build:
+      context: ./ms_tuits
+      dockerfile: Dockerfile
+    image: ms_tuits
+    ports:
+      - "8001:8000"
+    expose:
+      - "8001"
+  ms_reaction:
+    container_name: ms_reaction
+    build:
+      context: ./ms_reaction
+      dockerfile: Dockerfile
+    image: ms_reaction
+    ports:
+      - "8002:8000"
+    expose:
+      - "8002"
+  mysql-db:
+    image: mysql:8.0.17
+    environment:
+      # TODO: Send credentials to secrets, off course
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_USER: platuit-user
+      MYSQL_PASSWORD: platuit-password
+      MYSQL_DATABASE: platuit
+    ports: 
+      - "3306:3306"
+    volumes:
+      - platuit-volume:/var/lib/mysql
+  adminer-client:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+
+volumes:
+  platuit-volume:
